@@ -1,0 +1,83 @@
+:toc:
+:toc-title: Table of content
+ 
+== Photorec directory beautifier
+
+=== Why this tool was created
+
+I had a crashed hard disk and was forced to recover data because many images were contained without any backup. 
+
+So I did :
+
+- Bought another second hand hard disk having same hardware controller on hard disk
+- Replaced controller
+- Booted with a LIVE Linux CD ...
+- Was able to access my hard drive again - with errors
+- Started a full dump / restore of my hard disk by *ddrescue*: + 
+  `ddrescue /dev/sdb ./full-sdb-backup.img ./full-sdb-rescue.log`
+- after this I used `photorec`, which is part of `testdisk` suite, to restore photos from my image. +   
+  _(Simply call `photorec` on command line)_
+
+I was able to recover an bigger amount of data - not all, but most data. Thanx a lot to all people involved developing formerly mentioned tools!
+
+Unfortunetely the resulting file structure  contains all images in a random way and looked this way:
+
+```
+photoRecOutputDir/
+  recup_dir.1/
+         f0225128.jpg
+         f0236000.jpg
+         f0321233.doc
+         f0423351.exe
+         ...etc.
+  recup_dir.2/
+  	     ...etc.
+  recup_dir.63
+         ...etc.
+```
+
+I was only interested in some specific files - mostly in JPEG. Also sorting all these files manually (>60.000 files) was no option.
+So I wrote this software.
+
+=== License
+To keep this simple this software is MIT license.
+
+=== Build
+Just execute `./gradlew fatJar`
+
+This will build `pdb.jar` inside `build/libs` which contains all dependencies.
+
+=== Usage
+`java -jar pdb.jar -s ${photoRecOutputDir} -t ${pdbTargetDir}`
+
+=== Output structure
+It simply tries to get origin creation time from files (JPEG meta information). If not possible the "last modified" file time stamp is used as a fallback.
+It also makes top level sub directories which have upppercased filending name, so garbage can be easily destroyed by a folder delete.
+
+```
+pdbTargetDir/
+        JPEG/
+           2019/
+               01/
+                 2019-01-01_13-12-01.jpg
+                 2019-01-11_14-03-21.jpg
+                 ...etc..
+               12/
+                 2019-12-01_13-12-01.jpg
+                 2019-12-01_13-13-21.jpg
+                 ...etc...
+               
+           2020/
+               ...etc...
+           
+        EXE/
+           2008/
+                05/
+                  2008-05-01_23-12-10.exe
+                  ..etc..
+                ..etc..
+           ..etc..
+        DOC
+           ..etc..
+        ...etc..
+```
