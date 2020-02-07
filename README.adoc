@@ -5,12 +5,13 @@
 
 === Why this tool was created
 
-I had a crashed hard disk and was forced to recover data because many images were contained without any backup. 
+I had a crashed hard disk and was forced to recover data because many photos and movies were contained without any backup. 
 
 So I did :
 
-- Bought another second hand hard disk having same hardware controller on hard disk
-- Replaced controller
+- Having no longer any access to hard drive I thought the PCB controller could be the problem
+- So I bought a second hand hard disk having same hardware specification as my crushed device
+- Replaced PCB controller 
 - Booted with a LIVE Linux CD ...
 - Was able to access my hard drive again - with errors
 - Started a full dump / restore of my hard disk by *ddrescue*: + 
@@ -53,6 +54,11 @@ This will build `pdb.jar` inside `build/libs` which contains all dependencies.
 === Output structure
 It simply tries to get origin creation time from files (JPEG meta information). If not possible the "last modified" file time stamp is used as a fallback.
 It also makes top level sub directories which have upppercased filending name, so garbage can be easily destroyed by a folder delete.
+
+File names are in format `yyyy-MM-dd_HH-mm-ss` with origin file name ending.
+
+
+Here an example output:
 
 ```
 pdbTargetDir/
