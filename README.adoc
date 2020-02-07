@@ -1,5 +1,13 @@
 :toc:
 :toc-title: Table of content
+
+
+[frame=none,grid=none,cols=2]
+|===
+a| image::https://travis-ci.com/de-jcup/photorec-directory-beautifier.svg?branch=master[link="https://travis-ci.com/de-jcup/photorec-directory-beautifier"]
+a| 
+|=== 
+
  
 == Photorec directory beautifier
 
@@ -7,21 +15,24 @@
 
 I had a crashed hard disk and was forced to recover data because many photos and movies were contained without any backup. 
 
-So I did :
+*My steps to recover my data:*
 
 - Having no longer any access to hard drive I thought the PCB controller could be the problem
-- So I bought a second hand hard disk having same hardware specification as my crushed device
-- Replaced PCB controller 
+- So I bought a second hand hard disk having same hardware specification as my crashed device
+- Replaced defect PCB controller 
 - Booted with a LIVE Linux CD ...
-- Was able to access my hard drive again - with errors
-- Started a full dump / restore of my hard disk by *ddrescue*: + 
+- Was able to access my hard drive again - but with errors and no file system
+- Started a full dump / restore of my hard disk with *ddrescue*: + 
   `ddrescue /dev/sdb ./full-sdb-backup.img ./full-sdb-rescue.log`
-- after this I used `photorec`, which is part of `testdisk` suite, to restore photos from my image. +   
+- After some time even the "new" PCB controller crashed, but at least an image was available with some data.
+- I used `photorec`, which is part of `testdisk` suite, to restore photos from former created image. +   
   _(Simply call `photorec` on command line)_
 
-I was able to recover an bigger amount of data - not all, but most data. Thanx a lot to all people involved developing formerly mentioned tools!
+I was able to recover a big amount of data - not all, but most data. *Thanx a lot to all people involved developing formerly mentioned tools!*
 
-Unfortunetely the resulting file structure  contains all images in a random way and looked this way:
+Unfortunetely the resulting file structure  contains all recovered files in a random structure and also random file names.
+Only the modification time stamp was recovered as well:
+
 
 ```
 photoRecOutputDir/
