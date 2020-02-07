@@ -48,6 +48,8 @@ public class PhotorecDirectoryBeautiefier {
 		countFileOrFolder(c);
 		LOG.info("counted, all files:{}", c.allFiles);
 		inspectFileOrFolder(c);
+		System.out.println("++++++++++++++++++ DONE ++++++++++++++++++");
+		LOG.info("DONE");
 
 	}
 
